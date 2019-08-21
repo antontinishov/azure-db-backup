@@ -1,0 +1,19 @@
+version: "3"
+services:
+  db_backup:
+    container_name: db_backup
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file:
+      - .env
+    networks:
+      - db_backup_network
+
+
+networks:
+  db_backup_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24

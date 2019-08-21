@@ -26,7 +26,7 @@ def make_dump() -> str or bool:
 		                                                                      db_name=DATABASE["db_name"],
 		                                                                      now_date=now_date)
 
-		pg_dump_command = "pg_dump -U {db_user} -d {db_name} -h {db_host} | gzip > {backup_file}".format(
+		pg_dump_command = "PGPASSWORD=$DB_PASSWORD pg_dump -U {db_user} -d {db_name} -h {db_host} | gzip > {backup_file}".format(
 			db_user=DATABASE["db_user"],
 			db_name=DATABASE["db_name"],
 			db_host=DATABASE["db_host"],
@@ -64,7 +64,7 @@ def delete_old_blobs():
 	try:
 		blobs = blob_service.list_blob_names(container_name=AZURE_CONTAINER_NAME)
 		blobs = tuple(blobs)
-		if len(blobs) > 10:
+		while len(blobs) > 10:
 			blob_service.delete_blob(container_name=AZURE_CONTAINER_NAME, blob_name=blobs[0])
 	except Exception as exc:
 		logger.exception(exc)
