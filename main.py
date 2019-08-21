@@ -60,7 +60,7 @@ def delete_local_file(filename) -> bool:
 	return True
 
 
-def delete_old_blobs():
+def delete_old_blobs() -> bool:
 	try:
 		blobs = blob_service.list_blob_names(container_name=AZURE_CONTAINER_NAME)
 		blobs = tuple(blobs)
