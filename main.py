@@ -41,7 +41,7 @@ def make_dump() -> str or bool:
 
 
 def upload_to_blob(filename: str) -> bool:
-	if filename and os.path.exists(filename):
+	if filename and os.path.exists(filename) and os.path.getsize(filename) > 0:
 		blob_service.create_blob_from_path(
 			container_name=AZURE_CONTAINER_NAME,
 			blob_name=filename.split("/")[-1],
