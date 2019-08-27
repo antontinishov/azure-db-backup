@@ -15,7 +15,7 @@ except Exception as exc:
 	raise Exception
 
 
-def make_dump() -> str or bool:
+def make_dump() -> str:
 	now_date = datetime.now().strftime("%d-%m-%Y.%H.%M")
 	backup_dir_path = "{}/backup".format(os.getcwd())
 	if not os.path.exists(backup_dir_path):
