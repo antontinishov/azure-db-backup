@@ -64,7 +64,7 @@ def delete_old_blobs() -> bool:
 	try:
 		blobs = blob_service.list_blob_names(container_name=AZURE_CONTAINER_NAME)
 		blobs = tuple(blobs)
-		while len(blobs) > 10:
+		if len(blobs) > 10:
 			blob_service.delete_blob(container_name=AZURE_CONTAINER_NAME, blob_name=blobs[0])
 	except Exception as exc:
 		logger.exception(exc)
